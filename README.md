@@ -1,9 +1,11 @@
 # system-policies
 Configure global settings for system policies
 
-This program should allow to create policy files using an interface instead of relying on the command line, this can be used in order for those programs to be able to use polkit/pkexec instead of gksu or sudo/su as graphical frontend. This program is in alpha stages so it might not work as expected at first, but I will try to update it on my free time
+This program should allow to create policy files using an interface instead of relying on the command line, this can be used in order for those programs to be able to use polkit/pkexec instead of gksu or sudo/su as graphical frontend. This program is in alpha stages so it might not work as expected at first, but I will try to update it on my free time. 
 
-Credit and inspiration for the polkit-converter code goes to [this forum](https://bbs.archlinux.org/viewtopic.php?id=127648) and [this pastebin](https://pastebin.com/PbGTZ0jc), credit for this project goes to [this another project](https://github.com/scarygliders/Polkit-Explorer)
+The idea for this program is to be a little bit like polkit-explorer and not only be able to watch the files, but also to create some policy files from scratch, also polkit-explorer is created using qt and python and I expect this to become an XApp so that you can use in many Gtk environments but being de-agnostic as well (ideally)
+
+Credit and inspiration for the polkit-converter code goes to [this forum](https://bbs.archlinux.org/viewtopic.php?id=127648) and [this pastebin](https://pastebin.com/PbGTZ0jc), credit for this project goes to [polkit-explorer project](https://github.com/scarygliders/Polkit-Explorer)
 
 ## TO-DO
 * Migrate polkit-converter code to Python (will it be possible to make it part of a Xapp library/application?)

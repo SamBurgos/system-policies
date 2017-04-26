@@ -1,0 +1,145 @@
+#!/usr/bin/python3
+
+import setproctitle
+import os
+import gi
+#import gettext
+import sys
+#import glob
+
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gio, GLib
+
+setproctitle.setproctitle("system-policies")
+
+#gettext.install("lightdm-settings", "/usr/share/locale")
+
+class Application(Gtk.Application):
+    ''' Create the UI '''
+    def __init__(self):
+
+        Gtk.Application.__init__(self, application_id='org.x.system-policies', flags=Gio.ApplicationFlags.FLAGS_NONE)
+        self.connect("activate", self.on_activate)
+
+    def on_activate(self, data=None):
+        list = self.get_windows()
+        if len(list) > 0:
+            # Application is already running, focus the window
+            self.get_active_window().present()
+        else:
+            self.create_window()
+
+    def create_window(self):
+        self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
+
+        self.window.set_title(("System Policies"))
+        self.window.set_icon_name("preferences-system")
+        self.window.set_default_size(640, 400)
+
+        self.main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+
+        # Creating Gtk Stack
+        #self.main_stack = Gtk.Stack()
+        #self.main_stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        #self.main_stack.set_transition_duration(1000)
+        #self.main_box.pack_start(self.main_stack, True, True, 0)
+
+        #Example
+        #checkbutton = Gtk.checkbutton(("Click me!"))
+        #stack.add_titled(checkbutton, "Check Button")
+
+
+        #End example
+
+        # Main Stack (Creating rules)
+        #stack_switcher = Gtk.StackSwitcher()
+        #stack_switcher.set_stack(self.main_stack)
+        #tool_item = Gtk.ToolItem()
+        #tool_item.set_expand(True)
+        #tool_item.get_style_context().add_class("raised")
+        #toolbar.insert(tool_item, 0)
+        #switch_holder = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        #switch_holder.set_border_width(1)
+        #tool_item.add(switch_holder)
+        # # switch_holder.pack_start(stack_switcher, True, True, 0)
+        #stack_switcher.set_halign(Gtk.Align.CENTER)
+        #toolbar.show_all()
+
+        #self.previous_button = Gtk.Button(("Previous action rule"))
+        #self.next_button = Gtk.Button(("Next action rule"))
+
+        #settings = Gio.Settings("x.dm.slick-greeter")
+
+        debug = False
+        if len(sys.argv) > 1 and sys.argv[1] == "debug":
+            debug = True
+
+        # Settings
+
+        #keyfile = GLib.KeyFile()
+        #try:
+        #    keyfile.load_from_file(CONF_PATH, 0)
+        #except:
+        #    print("Could not load %s." % CONF_PATH)
+
+        #page = SettingsPage()
+
+        #section = page.add_section(_("Settings"))
+
+        #section.add_row(SettingsRow(Gtk.Label(_("Draw a grid")), SettingsSwitch(keyfile, settings, "draw-grid")))
+
+        #try:
+        #    distro = lsb_release.get_lsb_information()['ID']
+        #    if distro.lower() in ['linuxmint', 'ubuntu', 'elementary']:
+                # AccountsService doesn't support Background selection. It's something that is patched in Ubuntu, so only support this feature
+                # in Ubuntu derivatives
+        #        section.add_row(SettingsRow(Gtk.Label(_("Draw user backgrounds")), SettingsSwitch(keyfile, settings, "draw-user-backgrounds")))
+        #except:
+        #    pass
+        #section.add_row(SettingsRow(Gtk.Label(_("Show hostname")), SettingsSwitch(keyfile, settings, "show-hostname")))
+
+        #row = section.add_row(SettingsRow(Gtk.Label(_("Logo")), SettingsFileChooser(keyfile, settings, "logo")))
+        #row = section.add_row(SettingsRow(Gtk.Label(_("Background logo")), SettingsFileChooser(keyfile, settings, "background-logo")))
+        #row = section.add_row(SettingsRow(Gtk.Label(_("Background")), SettingsFileChooser(keyfile, settings, "background")))
+
+        #row = section.add_row(SettingsRow(Gtk.Label(_("Background color")), SettingsColorChooser(keyfile, settings, "background-color")))
+
+        #row = section.add_row(SettingsRow(Gtk.Label(_("GTK theme")), SettingsCombo(keyfile, settings, "theme-name", self.get_gtk_themes(), "string")))
+        #row = section.add_row(SettingsRow(Gtk.Label(_("Icon theme")), SettingsCombo(keyfile, settings, "icon-theme-name", self.get_icon_themes(), "string")))
+
+        #hidpi_options = []
+        #hidpi_options.append(["auto", _("Auto")])
+        #hidpi_options.append(["on", _("Enable")])
+        #hidpi_options.append(["off", _("Disable")])
+        #section.add_row(SettingsRow(Gtk.Label(_("HiDPI support")), SettingsCombo(keyfile, settings, "enable-hidpi", hidpi_options, "string")))
+
+        self.window.add(self.main_box)
+
+        #self.main_stack.add_titled(page, "settings", _("Settings"))
+
+        self.add_window(self.window)
+        self.window.show_all()
+
+    #def walk_directories(self, dirs, filter_func, return_directories=False):
+        # If return_directories is False: returns a list of valid subdir names
+        # Else: returns a list of valid tuples (subdir-names, parent-directory)
+        #valid = []
+        #try:
+        #    for thdir in dirs:
+        #        if os.path.isdir(thdir):
+        #            for t in os.listdir(thdir):
+        #                if filter_func(os.path.join(thdir, t)):
+        #                    if return_directories:
+        #                        valid.append([t, thdir])
+        #                    else:
+        #                        valid.append(t)
+        #except:
+        #    pass
+            #logging.critical("Error parsing directories", exc_info=True)
+        #return valid
+
+if __name__ == "__main__":
+    app = Application()
+    app.run(None)
+
+
